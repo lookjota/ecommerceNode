@@ -137,5 +137,3 @@ export const refreshToken = async (req, res) => {
   }
 }
 
-// TODO: implement get profile later
-// export const getProfile

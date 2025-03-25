@@ -1,5 +1,6 @@
 import cloudinary from "../lib/cloudinary.js"
 import Product from "../models/product.model.js"
+// import { redis } from "../models/product.model.js"
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -59,3 +60,64 @@ export const createProduct = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message})
   }
 }
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id)
+
+    if(!product) {
+      return res.status(404).json({ message: "Product not found"})
+    }
+
+    if(product.image) {
+      const publicId = product.image.split("/").pop().split(".")[0]
+      try {
+        await cloudinary.uploader.destroy(`products/${publicId}`)
+        console.log("deleted image from cloudinary")
+      } catch (error) {
+        console.log("error deleting image from cloudinary", error)
+        res.json({ message: "Product deleted successfully"})
+      } 
+    }
+    await Product.findByIdAndDelete(req.params.id)    
+  } catch (error) {
+    console.log("Error in deletedProduct controller", error.message)
+    res.status(500).json({ message: "Server error", error: error.message})
+  }
+}
+
+export const getRecommendedProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      {
+        $sample: {size:3}
+      },
+      {
+        $project: {
+          _id:1,
+          name:1,
+          description:1,
+          image:1,
+          price:1
+        }
+      }
+    ])
+    res.json(products)
+  } catch(error) {
+    console.log("Error in getRecommendedProducts controller", error.message)
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+}
+
+export const getProductsByCategory = async (req, res) => {
+  const { category } = req.params
+  try {
+    const products = await Product.find({ category })
+    res.json(products)
+  } catch(error) {
+    console.log("Error in getProductsByCategory controller", error.message)
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+}
+
+
