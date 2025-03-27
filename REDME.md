@@ -8,13 +8,23 @@ $ npm init -y
 
 ### install dependencies
 
-$ npm install i express dotenv mongoose jsonwebtoken stripe cloudinary cookie-parser bcrypts ioredis
+$ npm install i express dotenv mongoose jsonwebtoken stripe cloudinary cookie-parser bcrypts ioredis cors
 
 $ npm i nodemon -D
 
 
-### start 
+### start Backend
 node ./backend/lib/redis.js
 
 ### install redis dependencies
 $ npm install redis
+
+--------------------
+### start Frontend
+
+terminal frontend
+  $ npm create vite@latest
+  $ react
+  $ javascript
+
+  $ npm i

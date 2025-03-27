@@ -1,5 +1,6 @@
 
 import jwt from "jsonwebtoken"
+import User from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
   try {
@@ -32,6 +33,6 @@ export const adminRoute =  (req, res, next) => {
   if(req.user && req.user.role == "admin") {
     next()
   } else {
-    return res.status(403).json({ message: "Acess denied - Admin only"})
+    return res.status(403).json({ message: "Access denied - Admin only"})
   }
 }

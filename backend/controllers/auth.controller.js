@@ -86,6 +86,7 @@ export const login = async (req, res) => {
     res.status(401).json({ message: "Invalid credentials" })
   }
 }
+
 export const logout = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken
@@ -137,3 +138,10 @@ export const refreshToken = async (req, res) => {
   }
 }
 
+export const getProfile = async (req, res) => {
+  try {
+    res.json(req, res)
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+}
