@@ -33,6 +33,7 @@ const setCookies = (res, accessToken, refreshToken) => {
   })
 }
 export const signup = async (req, res) => {
+  // console.log(req.body)
   const {email, password, name} = req.body
   
   try {
