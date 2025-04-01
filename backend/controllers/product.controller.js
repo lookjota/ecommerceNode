@@ -1,6 +1,7 @@
 import cloudinary from "../lib/cloudinary.js"
 import Product from "../models/product.model.js"
-// import { redis } from "../models/product.model.js"
+// import Redis from "ioredis"
+import { redis } from "../lib/redis.js"
 
 export const getAllProducts = async (req, res) => {
   try {

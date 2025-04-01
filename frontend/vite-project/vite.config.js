@@ -8,4 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server:{
+    "/api": {
+      target: "http://localhost:5000"
+    }
+  }
 })

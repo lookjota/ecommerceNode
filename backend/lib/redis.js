@@ -6,11 +6,12 @@ dotenv.config()
 export const client = new Redis(process.env.UPSTASH_REDIS_URL);
 client.on("connect", () => {
   console.log("Connected to Redis successfully!");
-});
+}); 
 
 client.on("error", (err) => {
   console.error("Redis connection error:", err);
 });
+export const redis = new Redis(process.env.UPSTASH_REDIS_URL);
 // key-value store
 // await client.set('foo', 'bar');
 
